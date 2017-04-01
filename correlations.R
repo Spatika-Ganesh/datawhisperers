@@ -1,9 +1,14 @@
-#data <- read.delim('data.txt')
-#dest <- read.delim('dest.txt')
+if(!exists('data')){
+  data <- read.delim("data.txt")
+  # remove irrelevant columns
+  data <- data[,c(1,3:9,18,20,27)]
+}
+if(!exists('dest')){
+  dest <- read.delim("dest.txt")
+  # remove irrelevant columns
+  dest <- dest[,c(1,6:144)]
+}
 
-# remove irrelevant columns
-data <- data[,c(1,3:9,18,20,27)]
-dest <- dest[,c(1,6:144)]
 
 # unique user ids
 id_list <- unique(data$user_id)
