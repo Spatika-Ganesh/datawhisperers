@@ -29,7 +29,7 @@ for(id in unique(data$user_id)){
     user_correlations$correlation[i-5] <- cor(destinations[,i], dest_counts, method="pearson")
   }
   
-  user_correlations[order(user_correlations$correlation, decreasing = TRUE),]
+  user_correlations <- user_correlations[order(user_correlations$correlation, decreasing = TRUE),]
   
   user_top10 <- head(user_correlations, n=10)
   
