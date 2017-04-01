@@ -11,7 +11,7 @@ corData <- data.frame(user = numeric(n), interest1 = character(n),
                       interest4 = character(n), interest5 = character(n),
                       interest6 = character(n), interest7 = character(n),
                       interest8 = character(n), interest9 = character(n),
-                      interest10 = character(n))
+                      interest10 = character(n), stringsAsFactors = FALSE)
 index = 1
 
 for(id in unique(data$user_id)){
@@ -22,31 +22,28 @@ for(id in unique(data$user_id)){
     dest_counts <- c(dest_counts, sum(user$srch_destination_id==d))
   }
   
-  user_correlations <- data.frame(name = character(138), correlation = numeric(138))
+  user_correlations <- data.frame(name = character(139), correlation = numeric(139), stringsAsFactors = FALSE)
   
   for(i in seq(6,144)){
-    user_correlations$name[i] <- toString(names(destinations[i]))
-    user_correlations$correlations[i] <- cor(destinations[,i], dest_counts, method="pearson")
+    user_correlations$name[i-5] <- toString(names(destinations[i]))
+    user_correlations$correlation[i-5] <- cor(destinations[,i], dest_counts, method="pearson")
   }
   
-  user_correlations[order(user_correlations$corellation, decreasing = TRUE),]
+  user_correlations[order(user_correlations$correlation, decreasing = TRUE),]
   
   user_top10 <- head(user_correlations, n=10)
   
   corData$user[index] <- id
-  corData$interest1[index] <- user_top10[1]
-  corData$interest2[index] <- user_top10[2]
-  corData$interest3[index] <- user_top10[3]
-  corData$interest4[index] <- user_top10[4]
-  corData$interest5[index] <- user_top10[5]
-  corData$interest6[index] <- user_top10[6]
-  corData$interest7[index] <- user_top10[7]
-  corData$interest8[index] <- user_top10[8]
-  corData$interest9[index] <- user_top10[9]
-  corData$interest10[index] <- user_top10[10]
-
-  
-  plot(user_top10)
+  corData$interest1[index] <- user_top10[1,1]
+  corData$interest2[index] <- user_top10[2,1]
+  corData$interest3[index] <- user_top10[3,1]
+  corData$interest4[index] <- user_top10[4,1]
+  corData$interest5[index] <- user_top10[5,1]
+  corData$interest6[index] <- user_top10[6,1]
+  corData$interest7[index] <- user_top10[7,1]
+  corData$interest8[index] <- user_top10[8,1]
+  corData$interest9[index] <- user_top10[9,1]
+  corData$interest10[index] <- user_top10[10,1]
   
   index <- index + 1
 
