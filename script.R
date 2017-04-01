@@ -49,3 +49,5 @@ for(id in unique(data$user_id)){
 
     
 }
+
+write.csv(corData, file="corData.csv")
