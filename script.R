@@ -1,11 +1,11 @@
-if(!exists('data')){
-  data <- read.delim("data.txt")
+if(!exists('userData')){
+  userData <- read.delim("data.txt")
 }
 if(!exists('dest')){
   dest <- read.delim("dest.txt")
 }
 
-n = length(unique(data$user_id))
+n = length(unique(userData$user_id))
 corData <- data.frame(user = numeric(n), interest1 = character(n),
                       interest2 = character(n), interest3 = character(n),
                       interest4 = character(n), interest5 = character(n),
@@ -14,8 +14,8 @@ corData <- data.frame(user = numeric(n), interest1 = character(n),
                       interest10 = character(n), stringsAsFactors = FALSE)
 index = 1
 
-for(id in unique(data$user_id)[1:100]){
-  user <- subset(data, user_id == id)
+for(id in unique(userData$user_id)[1:100]){
+  user <- subset(userData, user_id == id)
   destinations <- subset(dest, srch_destination_id %in% user$srch_destination_id)
   dest_counts <- vector()
   for(d in destinations$srch_destination_id) {
