@@ -1,7 +1,7 @@
 import csv
 from jaccard import JaccardPoint
 
-def makePoints(filename):
+def makePoints(filename, numberofpoints):
     jaccardPoints = []
     with open(filename, 'r') as file:
         reader = csv.reader(file)
@@ -10,6 +10,8 @@ def makePoints(filename):
             user_id = row[1]
             interests = row[2:11]
             jaccardPoints.append(JaccardPoint(user_id, interests))
+            if len(jaccardPoints) == numberofpoints:
+                return jaccardPoints
     return  jaccardPoints
 
 def writeGraphCSV(graph, graphName):
