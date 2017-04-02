@@ -1,6 +1,8 @@
 corData <- read.csv("corData.csv")
 
+# plots for all interest tiers
 for(int in seq(3,13)) {
+  int <- 3
   first_interests = unique(corData[1:100,][,int])
   n = length(first_interests)
   counts = vector()
@@ -13,5 +15,6 @@ for(int in seq(3,13)) {
     max_interests$name[i] <- levels(first_interests)[i+1]
   }
   max_interests <- max_interests[order(max_interests$count, decreasing = TRUE),]
-  barplot(max_interests$count, names.arg=max_interests$name)
+  barplot(max_interests$count, names.arg=max_interests$name, las=2, ylab="counts")
 }
+  
