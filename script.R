@@ -20,15 +20,19 @@ corData <- data.frame(user = numeric(n), interest1 = character(n),
                       cor6 = numeric(n), cor7 = numeric(n),
                       cor8 = numeric(n), cor9 = numeric(n),
                       cor10 = numeric(n), stringsAsFactors = FALSE)
-index = 1
+index = 0
+count = 0
 
-for(id in unique(userData$user_id)[1:n]){
+while(count < n){
+  index <- index + 1
+  
+  id = unique(userData$user_id)[index]
   user <- userData[userData$user_id == id,]
-  if(nrow(user) <= 2){
+  if(nrow(user) <= 3){
     next
   }
   destinations <- dest[dest$srch_destination_id %in% user$srch_destination_id,]
-  if(nrow(destinations) <= 2){
+  if(nrow(destinations) <= 3){
     next
   }
   dest_counts <- vector()
@@ -46,12 +50,11 @@ for(id in unique(userData$user_id)[1:n]){
   
   user_top10 <- head(user_correlations, n=10)
   
-  corData[index,] <- c(id, user_top10[,1], user_top10[,2])
+  corData[count + 1,] <- c(id, user_top10[,1], user_top10[,2])
   
-  print(index)
+  print(count)
   
-  index <- index + 1
-
+  count <- count + 1
     
 }
 
