@@ -11,3 +11,11 @@ def makePoints(filename):
             interests = row[2:11]
             jaccardPoints.append(JaccardPoint(user_id, interests))
     return  jaccardPoints
+
+def writeGraphCSV(graph, graphName):
+
+    filename = graphName + '.csv'
+    with open(filename, 'wb') as outfile:
+        csvwriter = csv.writer(outfile, delimiter=' ')
+        for node in graph.getNodes():
+            csvwriter.writerow([node.getID(), node.getCommunity().getID()])
