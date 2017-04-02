@@ -5,6 +5,8 @@ if(!exists('dest')){
   dest <- read.delim("dest.txt")
 }
 
+
+
 #n = length(unique(userData$user_id))
 n=100
 corData <- data.frame(user = numeric(n), interest1 = character(n),
@@ -21,8 +23,14 @@ corData <- data.frame(user = numeric(n), interest1 = character(n),
 index = 1
 
 for(id in unique(userData$user_id)[1:n]){
-  user <- subset(userData, user_id == id)
-  destinations <- subset(dest, srch_destination_id %in% user$srch_destination_id)
+  user <- userData[userData$user_id == id,]
+  if(nrow(user) <= 2){
+    next
+  }
+  destinations <- dest[dest$srch_destination_id %in% user$srch_destination_id,]
+  if(nrow(destinations) <= 2){
+    next
+  }
   dest_counts <- vector()
   for(d in destinations$srch_destination_id) {
     dest_counts <- c(dest_counts, sum(user$srch_destination_id==d))
@@ -31,7 +39,7 @@ for(id in unique(userData$user_id)[1:n]){
   user_correlations <- data.frame(name = character(139), correlation = numeric(139), stringsAsFactors = FALSE)
   
   for(i in seq(6,144)){
-    user_correlations[i-5,] <- c(toString(names(destinations[i])), cor(destinations[,i], dest_counts, method="pearson"))
+    user_correlations[i-5,] <- rbind(user = toString(names(destinations[i])), cor(destinations[,i], dest_counts, method="pearson"))
   }
   
   user_correlations <- user_correlations[order(user_correlations$correlation, decreasing = TRUE),]
