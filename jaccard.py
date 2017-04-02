@@ -14,7 +14,7 @@ class JaccardPoint:
         denominator = 110
 
         for self_worth, self_interest in enumerate(self.getInterests()):
-            for other_worth, other_interest in other.getInterests():
+            for other_worth, other_interest in enumerate(other.getInterests()):
                 if self_interest == other_interest:
                     numerator += ((self_worth + 1) + (other_worth + 1 ) )
 
@@ -39,7 +39,10 @@ def makeDict(jaccardPoints):
         for j, point2 in enumerate(jaccardPoints):
             if(i == j):
                 continue
-            distDict[point2.getID()] = point.weightedJaccardDistance(point2)
+            distance = point.weightedJaccardDistance(point2)
+            if(distance == 1.0):
+                continue
+            distDict[point2.getID()] = distance
         d[point.getID()] = [distDict, point.getID()]
 
     return d
