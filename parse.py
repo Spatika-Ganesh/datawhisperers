@@ -16,6 +16,6 @@ def writeGraphCSV(graph, graphName):
 
     filename = graphName + '.csv'
     with open(filename, 'w') as outfile:
-        csvwriter = csv.writer(outfile, delimiter=' ')
+        csvwriter = csv.writer(outfile, delimiter=',')
         for node in graph.getNodes():
             csvwriter.writerow([node.getID(), node.getCommunity().getID()])
