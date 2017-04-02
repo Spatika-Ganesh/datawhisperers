@@ -6,13 +6,18 @@ if(!exists('dest')){
 }
 
 #n = length(unique(userData$user_id))
-n=10000
+n=100
 corData <- data.frame(user = numeric(n), interest1 = character(n),
                       interest2 = character(n), interest3 = character(n),
                       interest4 = character(n), interest5 = character(n),
                       interest6 = character(n), interest7 = character(n),
                       interest8 = character(n), interest9 = character(n),
-                      interest10 = character(n), stringsAsFactors = FALSE)
+                      interest10 = character(n), cor1 = numeric(n),
+                      cor2 = numeric(n), cor3 = numeric(n),
+                      cor4 = numeric(n), cor5 = numeric(n),
+                      cor6 = numeric(n), cor7 = numeric(n),
+                      cor8 = numeric(n), cor9 = numeric(n),
+                      cor10 = numeric(n), stringsAsFactors = FALSE)
 index = 1
 
 for(id in unique(userData$user_id)[1:n]){
@@ -33,7 +38,7 @@ for(id in unique(userData$user_id)[1:n]){
   
   user_top10 <- head(user_correlations, n=10)
   
-  corData[index,] <- c(id, user_top10[,1])
+  corData[index,] <- c(id, user_top10[,1], user_top10[,2])
   
   print(index)
   
